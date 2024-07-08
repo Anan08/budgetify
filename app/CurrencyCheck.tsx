@@ -5,6 +5,7 @@ const CurrencyCheck = () => {
   return (
     
     <View>
+      
     </View>
   )
 }

@@ -4,6 +4,7 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
+import Header from '@/components/Header'
 
 const Menu = [
   {
@@ -36,12 +37,7 @@ const Home = () => {
   return (
     <GestureHandlerRootView>
       <ScrollView>
-        <View style={{margin:20, marginBottom:30, display:'flex', flex:1, flexDirection:'row', justifyContent:'space-between'}}>
-          <Text style={{fontSize:20, fontWeight:'bold'}}>Budgetify </Text>
-          <TouchableOpacity style={{}}>
-            <Ionicons name='options' size={20}/>
-          </TouchableOpacity>
-        </View>
+        <Header/>
         <View style={{margin:10, borderRadius:30 }}>
           <View style={{display:'flex', flexDirection:'row', justifyContent:'center', backgroundColor:'#507CC6', padding:10, borderRadius:30}}>
             <Image source={require('../assets/images/finance (1).png')} style={{maxHeight:300, maxWidth:300, borderRadius:30}}/>
@@ -49,7 +45,7 @@ const Home = () => {
           <View style={{display:'flex', justifyContent:'space-between', flexDirection:'row',}}>
             <Text style={{fontSize:20, fontWeight:'bold', marginBottom:10, marginTop:10}}>Other Menus</Text>
             <TouchableOpacity>
-              <Text>fdsa</Text>
+              <Text></Text>
             </TouchableOpacity>
           </View>
           <View style={{}}>
