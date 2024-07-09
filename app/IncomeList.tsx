@@ -7,58 +7,32 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ExpenseCard from '@/components/ExpenseCard';
 import { collection, getDocs, query } from 'firebase/firestore';
 import TotalSum from '@/components/TotalSum';
+import IncomeCard from '@/components/IncomeCard';
 
-type Expense = {
+type Income = {
   id:string,
   title:string,
   amount:string,
   desc:string
 }
 
-const Dummy = [
-  {
-    id:1, 
-    title:"Lunch Break",
-    amount:50000,
-    desc:"For Lunch Break",
-  },
-  {
-    id:2, 
-    title:"Clothes",
-    amount:500000,
-    desc:"Clothes Shopping",
-  },
-  {
-    id:3, 
-    title:"Food",
-    amount:50000,
-    desc:"Yes, food is delicious",
-  },
-  {
-    id:4, 
-    title:"Hobby",
-    amount:250000,
-    desc:"Game is so fun",
-  },
-
-]
-const ExpenseList = () => {
+const IncomeList = () => {
   const [sum, setSum] = useState(0);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [incomes, setIncome] = useState<Income[]>([]);
 
   const fetchExpenses = async () => {
     try {
-      const q = query(collection(db, 'expenses'));
+      const q = query(collection(db, 'income'));
       const querySnapshot = await getDocs(q);
-      const expensesArray : Expense[] = [];
+      const incomeArray : Income[] = [];
       let total = 0;
       querySnapshot.forEach((doc) => {
-        const data = doc.data() as Omit<Expense, 'id'>
-        const expense: Expense = {id: doc.id, ...data};
-        expensesArray.push(expense);
+        const data = doc.data() as Omit<Income, 'id'>
+        const expense: Income = {id: doc.id, ...data};
+        incomeArray.push(expense);
         total += parseFloat(expense.amount);
       });
-      setExpenses(expensesArray);
+      setIncome(incomeArray);
       setSum(total);
     } catch (error) {
       Alert.alert('Error fetching expenses')
@@ -84,13 +58,13 @@ const ExpenseList = () => {
       </View> */}
       
       <FlatList
-      data={expenses}
+      data={incomes}
       ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
       keyExtractor={item => item.id.toString()}
-      renderItem={({item}) => <ExpenseCard item={item}/>}
+      renderItem={({item}) => <IncomeCard item={item}/>}
       />
     </GestureHandlerRootView>
   )
 }
 
-export default ExpenseList
+export default IncomeList

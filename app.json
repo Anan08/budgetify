@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "expenses-tracker",
-    "slug": "expenses-tracker",
+    "name": "budgetify",
+    "slug": "budgetify",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/appIcon/adaptive-icon.png",
+    "icon": "./assets/images/appIcon/Logo-ijo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/appIcon/splash.png",
+      "image": "./assets/images/appIcon/splash/splash-ijo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,14 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/appIcon/adaptive-icon.png",
+        "foregroundImage": "./assets/images/appIcon/Adaptive Icon/Adaptive-icon-ijo.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/appIcon/favicon.png"
+      "favicon": "./assets/images/appIcon/Favicon/favicon-ijo.png"
     },
     "plugins": [
       "expo-router"

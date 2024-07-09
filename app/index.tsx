@@ -5,34 +5,7 @@ import { router } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
 import Header from '@/components/Header'
-import * as Icons from 'react-native-heroicons/outline'
 
-const Menu = [
-  {
-    id : 1,
-    title: "Add Expense",
-    desc: "Add your new Expense",
-    route: "AddExpense"
-  },
-  {
-    id : 2,
-    title: "Add Income",
-    desc: "Add your Income",
-    route: "AddIncome"
-  },
-  {
-    id : 3,
-    title: "Currency Check",
-    desc: "Check Today's Currency",
-    route: "CurrencyCheck"
-  },
-  {
-    id : 4,
-    title: "Expense List",
-    desc: "See your expense",
-    route: "ExpenseList"
-  }
-]
 
 const Home = () => {
   return (
@@ -84,7 +57,7 @@ const Home = () => {
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                      <Ionicons name='list-outline' size={35} color={"#000"}/>
+                      <Ionicons name='trending-down-outline' size={35} color={"#000"}/>
                     </View>
                 </TouchableOpacity>
                 <Text style={{fontSize:10}}>Outcome List</Text>
@@ -93,14 +66,14 @@ const Home = () => {
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/ExpenseList`)
+                    router.push(`/IncomeList`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                      <Ionicons name='cash-outline' size={35} color={"#000"}/>
+                      <Ionicons name='trending-up-outline' size={35} color={"#000"}/>
                     </View>
                 </TouchableOpacity>
-                <Text style={{fontSize:10}}>Currency Rate</Text>
+                <Text style={{fontSize:10}}>Income List</Text>
               </View>
             </View>
             <View>
@@ -111,10 +84,10 @@ const Home = () => {
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                      <Ionicons name='camera-outline' size={35} color={"#000"}/>
+                      <Ionicons name='cash-outline' size={35} color={"#000"}/>
                     </View>
                 </TouchableOpacity>
-                <Text style={{fontSize:10}}>Camera</Text>
+                <Text style={{fontSize:10}}>Currency Rate</Text>
               </View>
 
               <View style={{display:'flex', alignItems:'center'}}>
