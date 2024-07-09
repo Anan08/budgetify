@@ -76,7 +76,7 @@ const AddIncome = () => {
                     onChange={() => {
                         
                     }}
-                    placeholder='Desc?'
+                    placeholder='Description'
                     />
                 </View>
                 <View style={{marginTop:40}}>

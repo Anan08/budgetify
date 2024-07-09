@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ExpenseCard from '@/components/ExpenseCard';
 import { collection, getDocs, query } from 'firebase/firestore';
+import TotalSum from '@/components/TotalSum';
 
 type Expense = {
   id:string,
@@ -71,9 +72,11 @@ const ExpenseList = () => {
   return (
     <GestureHandlerRootView>
       <Header/>
-      <View>
-        <Text>{sum}</Text>
-      </View>
+      {/* <View style={{display:'flex', alignItems:'center', padding:10, backgroundColor:'#E7E7E7', margin:20, borderRadius:30}}>
+        <Text style={{fontSize:15, fontWeight:'600', margin:20}}>Your total Outcome</Text>
+        <Text style={{fontSize:15, fontWeight:'600', margin:5}}>{sum}</Text>
+      </View> */}
+      
       <FlatList
       data={expenses}
       ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
