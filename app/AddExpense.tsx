@@ -1,15 +1,42 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import Header from '@/components/Header'
+import CustomAlert from '@/components/CustomAlert'
+import { db } from '@/firebaseConfig'
+import { addDoc, collection } from 'firebase/firestore'
 
 const AddExpense = () => {
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
     const [desc, setDesc] = useState('');
+    const [alertVisible, setAlertVisible] = useState(false);
+    const [alertMessage, seAalertMessage] = useState('');
+    const [alertImage, setAlertImage] = useState(null);
+
+    const handleExpense = async () => {
+        if(title === '' || amount === '') {
+            Alert.alert("Form shouldn't be empty")
+        } else {
+            try {
+                let doc = await addDoc(collection(db, 'expenses'), {
+                    title,
+                    amount,
+                    desc
+                })
+                setTitle('');
+                setAmount('');
+                setDesc('');
+                router.back();
+                
+            } catch (error) {
+                
+            }
+        }
+    }
 
   return (
     <GestureHandlerRootView>
@@ -48,16 +75,21 @@ const AddExpense = () => {
                     onChange={() => {
                         
                     }}
-                    placeholder='Desc?'
+                    placeholder='Description'
                     />
                 </View>
                 <View style={{marginTop:40}}>
-                    <TouchableOpacity style={{width:300, display:'flex', alignItems:'center', backgroundColor:'#62B865', padding:10, borderRadius:30}}>
+                    <TouchableOpacity 
+                    style={{width:300, display:'flex', alignItems:'center', backgroundColor:'#62B865', padding:10, borderRadius:30}}
+                    onPress={handleExpense}>
                         <Text style={{color:'white', fontWeight:'bold'}}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
         </ScrollView>
+
+
         
     </GestureHandlerRootView>    
   )
