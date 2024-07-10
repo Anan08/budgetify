@@ -1,10 +1,13 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
-
+import { deleteDoc } from 'firebase/firestore'
+import { useNavigation } from 'expo-router'
 
 const IncomeFolderCard = ({item}) => {
+
+  const navigation = useNavigation();
     
     const handleDelete = async () => {
         try {
@@ -16,13 +19,19 @@ const IncomeFolderCard = ({item}) => {
         }
       }
     
-      const handleEdit = async () => {
-        router.push('/EditExpense')
+      const handleEdit = () => {
+        navigation.navigate('EditIncome', {folderId : item.id})
+      }
+
+      const handleOpenFolder = () => {
+        navigation.navigate('IncomeList', {folderId : item.id});
       }
   return (
     <>
       <View style={{alignItems:'center'}}>
-          <TouchableOpacity style={{display:'flex', justifyContent:'center', height: 200, width:200, margin:20, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}>
+          <TouchableOpacity 
+          style={{display:'flex', justifyContent:'center', height: 200, width:200, margin:20, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}
+          onPress={handleOpenFolder}>
               <Image source={randomImage()} style={{height:100, width: 100}}/>
               <Text style={{fontSize:15, fontWeight:'bold', margin:5}}>{item.title}</Text>
               <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', gap:20}}>

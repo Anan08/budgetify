@@ -4,12 +4,13 @@ import { db } from "../firebaseConfig";
 import EmptyList from '@/components/EmptyList';
 import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import ExpenseCard from '@/components/ExpenseCard';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import IncomeFolderCard from '../components/IncomeFolderCard'
+import { useRouter } from 'expo-router';
 
-const IncomeList = () => {
+const IncomeCardList = () => {
   const [sum, setSum] = useState(0);
+  const router = useRouter()
   const [incomes, setIncome] = useState([]);
 
   const fetchExpenses = async () => {
@@ -59,4 +60,4 @@ const IncomeList = () => {
   )
 }
 
-export default IncomeList
+export default IncomeCardList

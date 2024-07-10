@@ -3,7 +3,7 @@ import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Header from '@/components/Header'
 
-const EditPage = (id) => {
+const EditExpense = () => {
   return (
     <GestureHandlerRootView>
         <Header/>
@@ -14,4 +14,4 @@ const EditPage = (id) => {
   )
 }
 
-export default EditPage
+export default EditExpense

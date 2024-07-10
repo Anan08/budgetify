@@ -6,11 +6,11 @@ import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ExpenseFolderCard from '@/components/ExpenseFolderCard';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import TotalSum from '@/components/TotalSum';
+import { useRouter } from 'expo-router';
 
-
-const ExpenseList = () => {
+const ExpenseCardList = () => {
   const [sum, setSum] = useState(0);
+  const router = useRouter();
   const [expenses, setExpenses] = useState([]);
 
   const fetchExpenses = async () => {
@@ -32,9 +32,6 @@ const ExpenseList = () => {
     }
   };
 
-  const handleCurrency = () => {
-    
-  }
 
   useEffect(() => {
     fetchExpenses();
@@ -60,4 +57,4 @@ const ExpenseList = () => {
   )
 }
 
-export default ExpenseList
+export default ExpenseCardList

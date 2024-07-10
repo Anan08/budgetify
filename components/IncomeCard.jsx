@@ -4,23 +4,25 @@ import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { deleteDoc, doc } from 'firebase/firestore'
-import { router } from 'expo-router'
+import { useNavigation } from 'expo-router'
 
 
 const IncomeCard = ({item}) => {
+
+  const navigation = useNavigation();
   
   const handleDelete = async () => {
     try {
-      await deleteDoc(doc(db, 'income', item.id));
+      await deleteDoc(doc(db, 'incomes', item.id));
       Alert.alert('income deleted successfully');
-      router.push('/IncomeList');
+      router.push('/');
     } catch (error) {
       Alert.alert('deleting expense error');
     }
   }
   
   const handleEdit = async () => {
-    router.push('/EditExpense')
+    navigation.navigate('EditIncome', {id : item.id})
   }
   
   return (
@@ -29,7 +31,7 @@ const IncomeCard = ({item}) => {
           <TouchableOpacity style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10, padding:10, borderWidth:0.1, borderRadius:30, height:50, zIndex:0}}>
               <Text style={{fontSize:15, fontWeight:'bold', margin:5}}>{item.title}</Text>
               <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', gap:20}}>
-                <Text style={{fontSize:15, fontWeight:'bold', margin:5, color:'#E15C5D'}}>{item.amount}</Text>
+                <Text style={{fontSize:15, fontWeight:'bold', margin:5, color:'green'}}>{item.amount}</Text>
                 <View>
                   <TouchableOpacity style={{ paddingTop:3, zIndex:2}}
                   onPress={handleEdit}>

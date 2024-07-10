@@ -4,23 +4,26 @@ import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { db } from '@/firebaseConfig'
 import { deleteDoc, doc } from 'firebase/firestore'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams, useRouter } from 'expo-router'
 
 
 const ExpenseCard = ({item}) => {
+
+  const router = useRouter();
+  const folderId = useLocalSearchParams();
   
   const handleDelete = async () => {
     try {
       await deleteDoc(doc(db, 'expenses', item.id));
       Alert.alert('expense deleted successfully');
-      router.push('/ExpenseList');
+      router.push('/ExpenseList', {folderId : folderId});
     } catch (error) {
       Alert.alert('deleting expense error');
     }
   }
 
-  const handleEdit = async () => {
-    router.push('/EditExpense')
+  const handleEdit = () => {
+    router.push('/EditExpense', {id : item.id})
   }
   
   return (

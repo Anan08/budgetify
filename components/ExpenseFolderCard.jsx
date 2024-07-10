@@ -2,27 +2,37 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
+import { useNavigation } from 'expo-router'
+import { deleteDoc } from 'firebase/firestore'
 
 
 const ExpenseFolderCard = ({item}) => {
+  //router to go to other pages with param
+  const naavigation = useNavigation();
     
     const handleDelete = async () => {
         try {
           await deleteDoc(doc(db, 'folders', item.id));
           Alert.alert('Folder deleted successfully');
-          router.push('/ExpenseList');
+          router.push('/index');
         } catch (error) {
           Alert.alert('deleting Folder error');
         }
       }
     
-      const handleEdit = async () => {
-        router.push('/EditExpense')
+      const handleEdit = () => {
+        router.push('EditExpense', {folderId : item.id});
+      }
+
+      const handleOpenFolder = () => {
+        naavigation.navigate('ExpenseList', {folderId : item.id});
       }
   return (
     <>
       <View style={{alignItems:'center'}}>
-          <TouchableOpacity style={{display:'flex', justifyContent:'center', height: 200, width:200, margin:20, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}>
+          <TouchableOpacity 
+          style={{display:'flex', justifyContent:'center', height: 200, width:200, margin:20, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}
+          onPress={handleOpenFolder}>
               <Image source={randomImage()} style={{height:100, width: 100}}/>
               <Text style={{fontSize:15, fontWeight:'bold', margin:5}}>{item.title}</Text>
               <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', gap:20}}>

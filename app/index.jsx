@@ -27,7 +27,7 @@ const Home = () => {
             <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/AddIncome`)
+                    router.push(`/AddExpense`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
@@ -53,7 +53,7 @@ const Home = () => {
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/ExpensecardList`)
+                    router.push(`/ExpenseCardList`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>

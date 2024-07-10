@@ -31,7 +31,7 @@ const AddExpense = () => {
                     amount : numericAmount,
                     category : 'food',
                     desc : desc,
-                    folderId,
+                    folderId : 'B5Ylj4W88FMaC6Tnmcu4',
                     date : currentDate
                 })
                 setTitle('');
