@@ -6,13 +6,14 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { useNavigation } from 'expo-router';
 
 const ExpenseCard = ({ item, folderId }) => {
-    const navigation = useNavigation();
 
+    const navigation = useNavigation();
+    
     const handleDelete = async () => {
         try {
             await deleteDoc(doc(db, 'expenses', folderId, 'data', item.id));
             Alert.alert('Expense deleted successfully');
-            navigation.navigate('ExpenseList');
+            navigation.navigate('ExpenseList', {folderId : folderId});
         } catch (error) {
             Alert.alert('Deleting expense error');
             console.log(error);

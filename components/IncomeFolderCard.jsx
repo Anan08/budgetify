@@ -31,9 +31,9 @@ const IncomeFolderCard = ({item}) => {
     <>
       <View style={{alignItems:'center'}}>
           <TouchableOpacity 
-          style={{display:'flex', justifyContent:'center', height: 200, width:200, margin:20, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}
+          style={{display:'flex', justifyContent:'center', height: 160, width:160, margin:10, backgroundColor:'#F7F7F7', alignItems:'center', borderRadius:30}}
           onPress={handleOpenFolder}>
-              <Image source={randomImage()} style={{height:100, width: 100}}/>
+              <Image source={randomImage()} style={{height:80, width: 80}}/>
               <Text style={{fontSize:15, fontWeight:'bold', margin:5}}>{item.title}</Text>
               <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', gap:20}}>
                 <View style={{display:'flex',alignItems:'center', justifyContent:'space-evenly'}}>

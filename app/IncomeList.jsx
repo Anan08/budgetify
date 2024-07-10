@@ -58,7 +58,7 @@ const IncomeList = () => {
             data={incomes}
             ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
             keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => <IncomeCard item={item}/>}
+            renderItem={({item}) => <IncomeCard item={item} folderId={folderId}/>}
             />
         </GestureHandlerRootView>
   )

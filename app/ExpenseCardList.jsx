@@ -1,16 +1,17 @@
-import { View, Text, FlatList, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, FlatList, Alert, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { expensesRef } from "../firebaseConfig";
 import EmptyList from '@/components/EmptyList';
-import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ExpenseFolderCard from '@/components/ExpenseFolderCard';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useRouter } from 'expo-router';
+import { getDocs } from 'firebase/firestore';
+import { useNavigation } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const ExpenseCardList = () => {
-  const [sum, setSum] = useState(0);
-  const router = useRouter();
+
+  const navigation = useNavigation();
   const [expenses, setExpenses] = useState([]);
 
   const fetchExpenses = async () => {
@@ -26,9 +27,9 @@ const ExpenseCardList = () => {
         total += parseFloat(expense.amount);
       });
       setExpenses(expensesArray);
-      setSum(total);
     } catch (error) {
       Alert.alert('Error fetching expenses')
+      console.log(error)
     }
   };
 
@@ -41,18 +42,33 @@ const ExpenseCardList = () => {
 
   return (
     <GestureHandlerRootView>
-      <Header/>
+      <View style={{margin:20, display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('index');
+          }}>
+            <Text style={{fontSize:20, fontWeight:'bold'}}>Budgetify </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('AddFolder');
+          }}>
+            <Ionicons name='add-circle-outline' size={25}/>
+          </TouchableOpacity>
+      </View>
       {/* <View style={{display:'flex', alignItems:'center', padding:10, backgroundColor:'#E7E7E7', margin:20, borderRadius:30}}>
         <Text style={{fontSize:15, fontWeight:'600', margin:20}}>Your total Outcome</Text>
         <Text style={{fontSize:15, fontWeight:'600', margin:5}}>Rp.{sum}</Text>
       </View> */}
-      
-      <FlatList
-      data={expenses}
-      ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
-      keyExtractor={item => item.id.toString()}
-      renderItem={({item}) => <ExpenseFolderCard item={item}/>}
-      />
+
+      <View>
+        <FlatList
+        data={expenses}
+        numColumns={2}
+        ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => <ExpenseFolderCard item={item}/>}
+        />
+      </View>
     </GestureHandlerRootView>
   )
 }

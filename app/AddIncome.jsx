@@ -31,7 +31,7 @@ const AddIncome = () => {
                 let doc = await addDoc(collection(db, 'incomes', folderId, 'data'), {
                     title : title,
                     amount : numericAmount,
-                    category : numericAmount,
+                    category : category,
                     description : description,
                     date : currentDate
                 })

@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, VirtualizedList } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, VirtualizedList, Alert } from 'react-native'
 import React from 'react'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { router } from 'expo-router'
@@ -66,7 +66,7 @@ const Home = () => {
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/IncomeCardList`)
+                    Alert.alert('Soon...')
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
@@ -84,16 +84,16 @@ const Home = () => {
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                      <Ionicons name='cash-outline' size={35} color={"#000"}/>
+                      <Ionicons name='calculator-outline' size={35} color={"#000"}/>
                     </View>
                 </TouchableOpacity>
-                <Text style={{fontSize:10}}>Currency Rate</Text>
+                <Text style={{fontSize:10}}>Currency Calculator</Text>
               </View>
 
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/ExpenseList`)
+                    Alert.alert('Soon....')
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>

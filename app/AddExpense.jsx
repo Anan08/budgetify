@@ -32,7 +32,7 @@ const AddExpense = () => {
                 let doc = await addDoc(collection(db, 'expenses', folderId, 'data'), {
                     title : title,
                     amount : numericAmount,
-                    category : numericAmount,
+                    category : category,
                     description : description,
                     date : currentDate
                 })
