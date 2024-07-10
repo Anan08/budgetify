@@ -1,51 +1,59 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import { useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { db } from "../firebaseConfig";
-import Header from '@/components/Header';
-import { collection, addDoc } from 'firebase/firestore';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
+import { useState } from 'react'
+import { Ionicons } from '@expo/vector-icons'
+import { router } from 'expo-router'
+import Header from '@/components/Header'
+import CustomAlert from '@/components/CustomAlert'
+import { db } from '@/firebaseConfig'
+import { addDoc, collection } from 'firebase/firestore'
 
-const AddIncome = () => {
+const AddExpense = () => {
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
     const [desc, setDesc] = useState('');
-    const [alertVisible, setAlertVisible] = useState(false);
-    const [alertMessage, seAalertMessage] = useState('');
-    const [alertImage, setAlertImage] = useState(null);
-    
-    const handleIncome = async () => {
-        //if title && amount === '' == false
+    const [category, setCategory] = useState('');
+    const [date, setDate] = useState(new Date());
+    const [folderId, setFolderId] = useState('');    
+
+    const handleExpense = async () => {
         if(title === '' || amount === '') {
-            Alert.alert("Form Shouldn't be Empty");
+            Alert.alert("Form shouldn't be empty")
         } else {
             try {
-                let doc = await addDoc(collection(db, 'income'), {
-                    title,
-                    amount,
-                    desc,
+                const currentDate = new Date();
+                const numericAmount = parseFloat(amount);
+                setDate(currentDate);
+
+                let doc = await addDoc(collection(db, 'expenses'), {
+                    title : title,
+                    amount : numericAmount,
+                    category : 'food',
+                    desc : desc,
+                    folderId,
+                    date : currentDate
                 })
-                Alert.alert("Income successfully Added")
                 setTitle('');
                 setAmount('');
                 setDesc('');
+                setFolderId('');
+                setCategory('');
+                router.back();
                 
             } catch (error) {
-                Alert.alert("Error Adding Income");
+                
             }
         }
-        
-        
     }
-    return (
+
+  return (
     <GestureHandlerRootView>
         <ScrollView>
             <Header/>
             <View style={{display:'flex', justifyContent:'center', alignItems:'center', margin:20}}>
                 <View>
-                    <Image source={require('../assets/images/finance.png')} style={{width:200, height:200}}/>
+                    <Image source={require('../assets/images/finance (2).png')} style={{width:200, height:200}}/>
                 </View>
                 <View style={{marginTop:20}}>
                     
@@ -55,7 +63,7 @@ const AddIncome = () => {
                     onChangeText={(value) => {setTitle(value);
                     }}
                     style={{borderWidth:0.1, borderRadius:30, backgroundColor:'#ff0ff', width:300, padding:10 }}
-                    placeholder='Put your Income title'
+                    placeholder='Put your expense title'
                     />
                     
                     <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Amount</Text>
@@ -82,18 +90,18 @@ const AddIncome = () => {
                 <View style={{marginTop:40}}>
                     <TouchableOpacity 
                     style={{width:300, display:'flex', alignItems:'center', backgroundColor:'#62B865', padding:10, borderRadius:30}}
-                    onPress={handleIncome}>
+                    onPress={handleExpense}>
                         <Text style={{color:'white', fontWeight:'bold'}}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
         </ScrollView>
+
+
         
-    </GestureHandlerRootView>
-    
-
-
+    </GestureHandlerRootView>    
   )
 }
 
-export default AddIncome
+export default AddExpense

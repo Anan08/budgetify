@@ -5,30 +5,22 @@ import EmptyList from '@/components/EmptyList';
 import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import ExpenseCard from '@/components/ExpenseCard';
-import { collection, getDocs, query } from 'firebase/firestore';
-import TotalSum from '@/components/TotalSum';
-import IncomeCard from '@/components/IncomeCard';
-
-type Income = {
-  id:string,
-  title:string,
-  amount:string,
-  desc:string
-}
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import IncomeFolderCard from '../components/IncomeFolderCard'
 
 const IncomeList = () => {
   const [sum, setSum] = useState(0);
-  const [incomes, setIncome] = useState<Income[]>([]);
+  const [incomes, setIncome] = useState([]);
 
   const fetchExpenses = async () => {
     try {
-      const q = query(collection(db, 'income'));
+      const q = query(collection(db, 'folders'), where('type', '==', 'incomes'));
       const querySnapshot = await getDocs(q);
-      const incomeArray : Income[] = [];
+      const incomeArray = [];
       let total = 0;
       querySnapshot.forEach((doc) => {
-        const data = doc.data() as Omit<Income, 'id'>
-        const expense: Income = {id: doc.id, ...data};
+        const data = doc.data();
+        const expense = {id: doc.id, ...data};
         incomeArray.push(expense);
         total += parseFloat(expense.amount);
       });
@@ -61,7 +53,7 @@ const IncomeList = () => {
       data={incomes}
       ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}
       keyExtractor={item => item.id.toString()}
-      renderItem={({item}) => <IncomeCard item={item}/>}
+      renderItem={({item}) => <IncomeFolderCard item={item}/>}
       />
     </GestureHandlerRootView>
   )

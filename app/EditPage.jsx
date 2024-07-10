@@ -3,7 +3,7 @@ import React from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Header from '@/components/Header'
 
-const EditPage = () => {
+const EditPage = (id) => {
   return (
     <GestureHandlerRootView>
         <Header/>

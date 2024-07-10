@@ -27,7 +27,7 @@ const Home = () => {
             <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/AddExpense`)
+                    router.push(`/AddIncome`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
@@ -39,21 +39,21 @@ const Home = () => {
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/AddIncome`)
+                    router.push(`/AddFolder`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
                       <Ionicons name='add-outline' size={35} color={"#000"}/>
                     </View>
                 </TouchableOpacity>
-                <Text style={{fontSize:10}}>Add Income</Text>
+                <Text style={{fontSize:10}}>Add Folder</Text>
               </View>
             </View>
             <View>
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/ExpenseList`)
+                    router.push(`/ExpensecardList`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
@@ -66,7 +66,7 @@ const Home = () => {
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/IncomeList`)
+                    router.push(`/IncomeCardList`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
@@ -80,7 +80,7 @@ const Home = () => {
             <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/ExpenseList`)
+                    router.push(`/CurrencyCheck`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
                     <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>

@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
-const EmptyList = ({messages}:any) => {
+const EmptyList = ({messages}) => {
   return (
     <GestureHandlerRootView>
       <View style={{display:'flex', alignItems:'center',marginTop:50}}>

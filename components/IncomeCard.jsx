@@ -7,18 +7,18 @@ import { deleteDoc, doc } from 'firebase/firestore'
 import { router } from 'expo-router'
 
 
-const ExpenseCard = ({item}:any) => {
+const IncomeCard = ({item}) => {
   
   const handleDelete = async () => {
     try {
-      await deleteDoc(doc(db, 'expenses', item.id));
-      Alert.alert('expense deleted successfully');
-      router.push('/ExpenseList');
+      await deleteDoc(doc(db, 'income', item.id));
+      Alert.alert('income deleted successfully');
+      router.push('/IncomeList');
     } catch (error) {
       Alert.alert('deleting expense error');
     }
   }
-
+  
   const handleEdit = async () => {
     router.push('/EditExpense')
   }
@@ -50,4 +50,4 @@ const ExpenseCard = ({item}:any) => {
   )
 }
 
-export default ExpenseCard
+export default IncomeCard

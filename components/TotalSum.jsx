@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const TotalSum = (sum:any) => {
+const TotalSum = (sum) => {
     
     if (sum === 0) {
         return

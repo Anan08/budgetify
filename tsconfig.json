@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "app/_layout.tsx", "components/(pages)/Income.tsx", "assets/images/randomImage.js"  ]
+, "app/_layout.tsx", "components/(pages)/Income.tsx", "assets/images/randomImage.js", "app/AddFolder.jsx", "app/AddExpense.jsx", "app/AddIncome.jsx", "app/CurrencyCheck.jsx", "app/DetailPages.jsx", "app/EditPage.jsx", "app/ExpenseDetail.jsx", "app/ExpenseCardList.jsx", "app/IncomeCardList.jsx", "app/index.jsx", "components/CustomAlert.jsx", "components/EmptyList.jsx", "components/ExpenseCard.jsx", "components/Header.jsx", "components/IncomeCard.jsx", "components/TotalSum.jsx", "app/+html.jsx", "components/navigation/TabBarIcon.tsx"  ]
 }
