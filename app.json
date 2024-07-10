@@ -4,7 +4,7 @@
     "slug": "budgetify",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/appIcon/Logo-ijo.png",
+    "icon": "./assets/images/appIcon/Adaptive Icon/Adaptive-icon-ijo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {

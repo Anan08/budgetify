@@ -1,31 +1,39 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
 import { useNavigation } from 'expo-router'
-import { deleteDoc } from 'firebase/firestore'
+import { collection, deleteDoc, where, doc, getDocs, getFirestore, query } from 'firebase/firestore'
+import db, { expensesRef } from '../firebaseConfig'
+
 
 
 const ExpenseFolderCard = ({item}) => {
   //router to go to other pages with param
-  const naavigation = useNavigation();
+  const navigation = useNavigation();
     
     const handleDelete = async () => {
         try {
-          await deleteDoc(doc(db, 'folders', item.id));
-          Alert.alert('Folder deleted successfully');
-          router.push('/index');
+          
+          await deleteDoc(expensesRef, item.id, 'data');
+          Alert.alert('deleted all subcollection inside the folders')
+          await deleteDoc(expensesRef, item.id);
+
+          Alert.alert('Folder deleted successfully, all sub-items has been removed');
+          navigation.navigate('index');
+
         } catch (error) {
           Alert.alert('deleting Folder error');
+          console.log(error)
         }
       }
     
       const handleEdit = () => {
-        router.push('EditExpense', {folderId : item.id});
+        navigation.navigate('EditExpense', {folderId : item.id});
       }
 
       const handleOpenFolder = () => {
-        naavigation.navigate('ExpenseList', {folderId : item.id});
+        navigation.navigate('ExpenseList', {folderId : item.id});
       }
   return (
     <>

@@ -1,53 +1,51 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native';
+import React from 'react';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { useNavigation, useLocalSearchParams } from 'expo-router';
 import { db } from "../firebaseConfig";
 import Header from '@/components/Header';
 import { collection, addDoc } from 'firebase/firestore';
+import CustomRadioButton from '@/components/CustomRadioButton';
 
 const AddIncome = () => {
+
+    const navigation = useNavigation();
+    const { folderId } = useLocalSearchParams();
+    console.log(folderId);
+
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
-    const [desc, setDesc] = useState('');
+    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [date, setDate] = useState(new Date())
-    const [folderId, setFolderId] = useState('');
-    
+
     const handleIncome = async () => {
-        //if title && amount === '' == false
-        if(title === '' || amount === '') {
-            Alert.alert("Form Shouldn't be Empty");
+        if(title === '' || amount === '' || category == '') {
+            Alert.alert("Form shouldn't be empty")
         } else {
             try {
                 const currentDate = new Date();
                 const numericAmount = parseFloat(amount);
-                setDate(currentDate);
-                
-                let doc = await addDoc(collection(db, 'incomes'), {
+
+                let doc = await addDoc(collection(db, 'incomes', folderId, 'data'), {
                     title : title,
                     amount : numericAmount,
-                    category : 'salary',
-                    desc : desc,
-                    folderId : "im5sYG8EWLLthwybjp9b",
+                    category : numericAmount,
+                    description : description,
                     date : currentDate
                 })
-                Alert.alert("Income successfully Added")
                 setTitle('');
                 setAmount('');
-                setDesc('');
-                setFolderId('');
+                setDescription('');
                 setCategory('');
-                router.back()
+                Alert.alert('adding income success');
+                navigation.navigate('IncomeList', {folderId : folderId});
                 
             } catch (error) {
-                Alert.alert("Error Adding Income");
+                console.log(error);
             }
         }
-        
-        
     }
     return (
     <GestureHandlerRootView>
@@ -80,14 +78,29 @@ const AddIncome = () => {
                     
                     <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Desc</Text>
                     <TextInput
-                    value={desc}
-                    onChangeText={(value) => {setDesc(value)}}
+                    value={description}
+                    onChangeText={(value) => {setDescription(value)}}
                     style={{borderWidth:0.1, borderRadius:30, backgroundColor:'#fffff', width:300, padding:10 }}
                     onChange={() => {
                         
                     }}
                     placeholder='Description'
                     />
+                </View>
+                <View>
+                    <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Type</Text>
+                    <CustomRadioButton
+                        label="salary"
+                        selected={category === "salary"}
+                        onSelect={() => setCategory('salary')}/>
+                    <CustomRadioButton
+                        label="investment"
+                        selected={category === "investment"}
+                        onSelect={() => setCategory('investment')}/>
+                    <CustomRadioButton
+                        label="other"
+                        selected={category === "other"}
+                        onSelect={() => setCategory('other')}/>
                 </View>
                 <View style={{marginTop:40}}>
                     <TouchableOpacity 

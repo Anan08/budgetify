@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { db } from "../firebaseConfig";
+import { db, incomesRef } from "../firebaseConfig";
 import EmptyList from '@/components/EmptyList';
 import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,8 +15,7 @@ const IncomeCardList = () => {
 
   const fetchExpenses = async () => {
     try {
-      const q = query(collection(db, 'folders'), where('type', '==', 'incomes'));
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(incomesRef);
       const incomeArray = [];
       let total = 0;
       querySnapshot.forEach((doc) => {

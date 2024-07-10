@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import randomImage from '@/assets/images/randomImage'
 import { deleteDoc } from 'firebase/firestore'
 import { useNavigation } from 'expo-router'
+import { incomesRef } from '@/firebaseConfig'
 
 const IncomeFolderCard = ({item}) => {
 
@@ -11,9 +12,9 @@ const IncomeFolderCard = ({item}) => {
     
     const handleDelete = async () => {
         try {
-          await deleteDoc(doc(db, 'folders', item.id));
+          await deleteDoc(incomesRef, item.id);
           Alert.alert('Folder deleted successfully');
-          router.push('/ExpenseList');
+          navigation.navigate('index')
         } catch (error) {
           Alert.alert('deleting Folder error');
         }

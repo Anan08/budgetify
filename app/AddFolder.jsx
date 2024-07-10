@@ -1,39 +1,54 @@
 import { View, Text, Alert, ScrollView, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/firebaseConfig';
-import { router } from 'expo-router';
+import { expensesRef, incomesRef } from '@/firebaseConfig';
+import { useNavigation } from 'expo-router';
 import Header from '@/components/Header';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import CustomRadioButton from '../components/CustomRadioButton';
 
-const buttonValue = [
-  {value : 'expenses'},
-  {value : 'incomes'},
-]
 
 const AddFolder = () => {
+
+  const navigation = useNavigation();
   
   const [title, setTitle] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState('')
 
-  const handleFolders = async() => {
+  const handleFolders = async () => {
     if (title === '' || type === '') {
       Alert.alert('form shouldnt be empty');
-    } else {
+    } else if (type === 'incomes'){
       try {
         currentDate = new Date();
-        let doc = await addDoc(collection(db, 'folders'), {
+        let doc = await addDoc(incomesRef, {
           title,
-          type,
           date : currentDate
         })
         setTitle('');
         setType('');
-        router.back();
+        Alert.alert('adding incomes folder success');
+        navigation.navigate('index');
+      
+      } catch (error) {
+        Alert.alert('error adding folders');
+        console.log(error);
+      }
+    } else {
+      try {
+        currentDate = new Date();
+        let doc = await addDoc(expensesRef, {
+          title,
+          date : currentDate
+        })
+        setTitle('');
+        setType('');
+        Alert.alert('adding expenses folder success');
+        navigation.navigate('index');
       
       } catch (error) {
         Alert.alert('error adding folders')
+        console.log(error);
       }
     }
   }
@@ -57,14 +72,17 @@ const AddFolder = () => {
               />                                        
             </View>
             <View style={{marginTop:20}}>
-              
               <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Type</Text>
-              <View>
-                <CustomRadioButton
-                data={buttonValue}
-                onSelect={(value) => {setType(value)}}/>
-              </View>
-              
+            </View>
+            <View>
+              <CustomRadioButton
+                  label="expenses"
+                  selected={type === "expenses"}
+                  onSelect={() => setType('expenses')}/>
+              <CustomRadioButton
+                  label="incomes"
+                  selected={type === "incomes"}
+                  onSelect={() => setType('incomes')}/>
             </View>
             <View style={{marginTop:40}}>
               <TouchableOpacity 

@@ -27,18 +27,6 @@ const Home = () => {
             <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/AddExpense`)
-                  }}
-                  style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
-                    <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
-                      <Ionicons name='remove-outline' size={35} color={"#000"}/>
-                    </View>
-                </TouchableOpacity>
-                <Text style={{fontSize:10}}>Add Expense</Text>
-              </View>
-              <View style={{display:'flex', alignItems:'center'}}>
-                <TouchableOpacity
-                  onPress={() => {
                     router.push(`/AddFolder`)
                   }}
                   style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
@@ -48,8 +36,6 @@ const Home = () => {
                 </TouchableOpacity>
                 <Text style={{fontSize:10}}>Add Folder</Text>
               </View>
-            </View>
-            <View>
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
@@ -62,7 +48,8 @@ const Home = () => {
                 </TouchableOpacity>
                 <Text style={{fontSize:10}}>Outcome List</Text>
               </View>
-
+            </View>
+            <View>
               <View style={{display:'flex', alignItems:'center'}}>
                 <TouchableOpacity
                   onPress={() => {
@@ -74,6 +61,19 @@ const Home = () => {
                     </View>
                 </TouchableOpacity>
                 <Text style={{fontSize:10}}>Income List</Text>
+              </View>
+
+              <View style={{display:'flex', alignItems:'center'}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push(`/IncomeCardList`)
+                  }}
+                  style={{backgroundColor:'#F7F7F7', borderRadius:10, margin:10, padding:10, width:60, height:60}}>
+                    <View style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
+                      <Ionicons name='camera-outline' size={35} color={"#000"}/>
+                    </View>
+                </TouchableOpacity>
+                <Text style={{fontSize:10}}>Camera</Text>
               </View>
             </View>
             <View>

@@ -3,46 +3,48 @@ import React from 'react'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
 import { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons'
-import { router } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import Header from '@/components/Header'
-import CustomAlert from '@/components/CustomAlert'
 import { db } from '@/firebaseConfig'
 import { addDoc, collection } from 'firebase/firestore'
+import { useNavigation } from 'expo-router'
+import CustomRadioButton from '@/components/CustomRadioButton'
 
 const AddExpense = () => {
+
+    const navigation = useNavigation();
+    const { folderId } = useLocalSearchParams();
+    console.log(folderId);
+
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
-    const [desc, setDesc] = useState('');
+    const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [folderId, setFolderId] = useState('');    
 
     const handleExpense = async () => {
-        if(title === '' || amount === '') {
+        if(title === '' || amount === '' || category == '') {
             Alert.alert("Form shouldn't be empty")
         } else {
             try {
                 const currentDate = new Date();
                 const numericAmount = parseFloat(amount);
-                setDate(currentDate);
 
-                let doc = await addDoc(collection(db, 'expenses'), {
+                let doc = await addDoc(collection(db, 'expenses', folderId, 'data'), {
                     title : title,
                     amount : numericAmount,
-                    category : 'food',
-                    desc : desc,
-                    folderId : 'B5Ylj4W88FMaC6Tnmcu4',
+                    category : numericAmount,
+                    description : description,
                     date : currentDate
                 })
                 setTitle('');
                 setAmount('');
-                setDesc('');
-                setFolderId('');
+                setDescription('');
                 setCategory('');
-                router.back();
+                Alert.alert('adding expenses success');
+                navigation.navigate('ExpenseList', {folderId : folderId});
                 
             } catch (error) {
-                
+                console.log(error);
             }
         }
     }
@@ -78,8 +80,8 @@ const AddExpense = () => {
                     
                     <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Desc</Text>
                     <TextInput
-                    value={desc}
-                    onChangeText={(value) => {setDesc(value)}}
+                    value={description}
+                    onChangeText={(value) => {setDescription(value)}}
                     style={{borderWidth:0.1, borderRadius:30, backgroundColor:'#fffff', width:300, padding:10 }}
                     onChange={() => {
                         
@@ -87,6 +89,30 @@ const AddExpense = () => {
                     placeholder='Description'
                     />
                 </View>
+                <View>
+                    <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Type</Text>
+                    <CustomRadioButton
+                        label="fashion"
+                        selected={category === "fashion"}
+                        onSelect={() => setCategory('fashion')}/>
+                    <CustomRadioButton
+                        label="food"
+                        selected={category === "food"}
+                        onSelect={() => setCategory('food')}/>
+                    <CustomRadioButton
+                        label="hobby"
+                        selected={category === "hobby"}
+                        onSelect={() => setCategory('hobby')}/>
+                    <CustomRadioButton
+                        label="daily"
+                        selected={category === "daily"}
+                        onSelect={() => setCategory('daily')}/>
+                    <CustomRadioButton
+                        label="other"
+                        selected={category === "other"}
+                        onSelect={() => setCategory('other')}/>
+                </View>
+
                 <View style={{marginTop:40}}>
                     <TouchableOpacity 
                     style={{width:300, display:'flex', alignItems:'center', backgroundColor:'#62B865', padding:10, borderRadius:30}}
