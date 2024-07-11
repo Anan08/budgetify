@@ -21,7 +21,7 @@ const IncomeCard = ({item, folderId}) => {
   }
   
   const handleEdit = () => {
-    navigation.navigate('EditIncome', {incomeId : item.id})
+    navigation.navigate('IncomeEdit', {incomeId : item.id, folderId})
   }
   
   const handleDetail = () => {

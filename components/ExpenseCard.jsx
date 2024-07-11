@@ -21,7 +21,7 @@ const ExpenseCard = ({ item, folderId }) => {
     };
 
     const handleEdit = () => {
-        navigation.navigate('EditExpense', { expenseId: item.id, folderId });
+        navigation.navigate('ExpenseEdit', { expenseId: item.id, folderId });
     };
 
     const handleDetail = () => {
