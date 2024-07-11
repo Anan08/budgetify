@@ -88,7 +88,7 @@ const AddIncome = () => {
                     />
                 </View>
                 <View>
-                    <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Type</Text>
+                    <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Category</Text>
                     <CustomRadioButton
                         label="salary"
                         selected={category === "salary"}
