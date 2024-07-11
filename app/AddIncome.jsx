@@ -53,7 +53,7 @@ const AddIncome = () => {
             <Header/>
             <View style={{display:'flex', justifyContent:'center', alignItems:'center', margin:20}}>
                 <View>
-                    <Image source={require('../assets/images/finance.png')} style={{width:200, height:200}}/>
+                    <Image source={require('../assets/images/line-graph.png')} style={{width:200, height:200}}/>
                 </View>
                 <View style={{marginTop:20}}>
                     
