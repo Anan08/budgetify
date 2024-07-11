@@ -15,20 +15,40 @@ const ExpenseList = () => {
 
     const navigation = useNavigation();
     
+    const [sum, setSum] = useState(0)
     const [expenses, setExpenses] = useState([])
     const {folderId} = useLocalSearchParams();
     console.log(folderId);
+
+
+    //return budget total on top of the list
+    const BudgetTotal = () => {
+      if (sum === 0) {
+        return null;
+      } else {;
+        return(
+          <View style={{margin:20, display:'flex', alignItems:'center'}}>
+            <Text style={{fontSize:15, fontWeight:'500'}}>Your Expense total : </Text>
+            <Text style={{fontSize:20, padding:10, color:'#E15C5D', fontWeight:'bold'}}>{sum} </Text>
+          </View>
+        );
+      }
+    }
 
     const fetchExpenses = async() => {
         try {
             let doc = await getDocs(collection(db, 'expenses', folderId, 'data'));
             const expensesArray = [];
+            let totalSum = 0;
             doc.forEach((doc) => {
                 const data = doc.data();
                 const expense = {id: doc.id, ...data};
+                totalSum += expense.amount
                 expensesArray.push(expense);
             });
             setExpenses(expensesArray);
+            setSum(totalSum);
+
         } catch (error) {
             Alert.alert('error fetching data');
             console.log(error);
@@ -54,6 +74,7 @@ const ExpenseList = () => {
             <Ionicons name='add-circle-outline' size={25}/>
           </TouchableOpacity>
         </View>
+        <BudgetTotal/>
         <FlatList
         data={expenses}
         ListEmptyComponent={<EmptyList messages="Your List's Empty :("/>}

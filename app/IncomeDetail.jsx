@@ -1,18 +1,22 @@
-import { View, Text, Alert, Image } from 'react-native'
+import { View, Text, Alert, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { doc, getDoc, collection, } from 'firebase/firestore'
 import { incomesRef } from '../firebaseConfig'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
-import Header from '@/components/Header'
+import { Ionicons } from '@expo/vector-icons'
+
+
 const IncomeDetail = () => {
+
+    const navigation = useNavigation();
     const [income, setIncome] = useState({});
 
     const { incomeId, folderId } = useLocalSearchParams();
     console.log(incomeId, folderId);
 
 
-    const fetchExpenses = async () => {
+    const fetchIncome = async () => {
         try {
             const incomeDataRef = doc(incomesRef, folderId, 'data', incomeId);
             const incomeDataSnap = await getDoc(incomeDataRef)
@@ -32,14 +36,27 @@ const IncomeDetail = () => {
     }
 
     useEffect(() => {
-        fetchExpenses();
+        fetchIncome();
     }, []);
 
     return (
         
         <GestureHandlerRootView>
             <ScrollView>
-            <Header/>
+            <View style={{margin:20, display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('ExpenseList', {folderId});
+                }}>
+                    <Text style={{fontSize:20, fontWeight:'bold'}}>Budgetify </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                style={{}}
+                onPress={() => {
+                    navigation.navigate('IncomeEdit', {incomeId, folderId})
+                }}>
+                    <Ionicons name='create-outline' size={20}/>
+                </TouchableOpacity>
+            </View>
             <View style={{justifyContent:'center', display:'flex', alignItems:'center', margin:20, }}>
                 <Text style={{fontSize:20, fontWeight:'bold', marginBottom:10}}>Income Detail</Text>
                 <Image source={require('../assets/images/growth.png')} style={{height:100, width:100}}/>

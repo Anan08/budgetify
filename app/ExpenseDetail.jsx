@@ -1,12 +1,15 @@
-import { View, Text, Alert, Image } from 'react-native'
+import { View, Text, Alert, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
-import { doc, getDoc, collection, } from 'firebase/firestore'
-import { db, expensesRef } from '../firebaseConfig'
+import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { doc, getDoc, } from 'firebase/firestore'
+import { expensesRef } from '../firebaseConfig'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
-import Header from '@/components/Header'
+import { Ionicons } from '@expo/vector-icons'
+
 
 const ExpenseDetail = () => {
+
+    const navigation = useNavigation();
 
     const [expense, setExpense] = useState({});
 
@@ -14,7 +17,7 @@ const ExpenseDetail = () => {
     console.log(expenseId, folderId);
 
 
-    const fetchExpenses = async () => {
+    const fetchExpense = async () => {
         try {
             const expenseDataRef = doc(expensesRef, folderId, 'data', expenseId);
             const expenseDataSnap = await getDoc(expenseDataRef)
@@ -34,14 +37,27 @@ const ExpenseDetail = () => {
     }
 
     useEffect(() => {
-        fetchExpenses();
+        fetchExpense();
     }, []);
 
     return (
         
         <GestureHandlerRootView>
             <ScrollView>
-            <Header/>
+            <View style={{margin:20, display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('ExpenseList', {folderId});
+                }}>
+                    <Text style={{fontSize:20, fontWeight:'bold'}}>Budgetify </Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                style={{}}
+                onPress={() => {
+                    navigation.navigate('ExpenseEdit', {expenseId, folderId})
+                }}>
+                    <Ionicons name='create-outline' size={20}/>
+                </TouchableOpacity>
+            </View>
             <View style={{justifyContent:'center', display:'flex', alignItems:'center', margin:20, }}>
                 <Text style={{fontSize:20, fontWeight:'bold', marginBottom:10}}>Expense Detail</Text>
                 <Image source={require('../assets/images/payment.png')} style={{height:100, width:100}}/>

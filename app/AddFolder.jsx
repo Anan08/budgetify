@@ -72,7 +72,7 @@ const AddFolder = () => {
               />                                        
             </View>
             <View style={{marginTop:20}}>
-              <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold'}}>Type</Text>
+              <Text style={{fontSize:18, marginBottom:10, marginTop:10, fontWeight:'bold', width:290}}>Category</Text>
             </View>
             <View>
               <CustomRadioButton
